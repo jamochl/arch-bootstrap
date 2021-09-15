@@ -1,2 +1,3 @@
-# arch-bootstrap
-Bootstrapping Arch Linux using Ansible and ArchInstall configuration
+# System Bootstrap
+
+Bootstrapping Pop OS or Arch Linux with my Dotfiles
