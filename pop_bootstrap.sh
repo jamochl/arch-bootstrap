@@ -36,6 +36,6 @@ sudo apt install -y $(cat $PACKAGE_DIR/{common_desired,ubuntu_desired}.list | gr
 sudo systemctl disable NetworkManager-wait-online.service
 
 # Kernel Setup (Metabox Only)
-if [[ -n "$(lscpu -J | jq '.lscpu[] | select(.field == "Model name:") | .data')" ]]; then
+if [[ "$(lscpu -J | jq '.lscpu[] | select(.field == "Model name:") | .data')" == '"Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz"' ]]; then
     sudo kernelstub -a "intel_idle.max_cstate=4"
 fi
