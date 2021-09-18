@@ -77,10 +77,13 @@ sudo systemctl disable NetworkManager-wait-online.service
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-VIMPLUGINSTALL="$(mktemp)"
-echo ':PlugInstall!' >> "$VIMPLUGINSTALL"
-vim -s "$VIMPLUGINSTALL" "$VIMPLUGINSTALL"
-rm -f "$VIMPLUGINSTALL"
+VIM_PLUG_INSTALL="$(mktemp)"
+cat <<EOF > "$VIM_PLUG_INSTALL"
+:PlugInstall! 
+:qa!
+EOF
+vim -s "$VIM_PLUG_INSTALL"
+rm -f "$VIM_PLUG_INSTALL"
 
 # Kernel Setup (Metabox Only)
 # Only works for uefi
