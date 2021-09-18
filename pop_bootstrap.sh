@@ -57,6 +57,7 @@ sudo firewall-cmd --set-default-zone=home
 
 ## User setup
 sudo usermod $USER -aG kvm,libvirt
+sudo chsh james --shell="/bin/zsh"
 
 ## libvirt Firewalld
 sudo firewall-cmd --new-zone=libvirt --permanent
@@ -69,8 +70,17 @@ sudo firewall-cmd --reload
 sudo systemctl enable libvirtd
 sudo systemctl restart libvirtd
 
-# Service setup
+# Network setup
 sudo systemctl disable NetworkManager-wait-online.service
+
+# Vim setup
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+VIMPLUGINSTALL="$(mktemp)"
+echo ":PlugInstall!" >> "$VIMPLUGINSTALL"
+vim -s "$VIMPLUGINSTALL" "$VIMPLUGINSTALL"
+rm -f "$VIMPLUGINSTALL"
 
 # Kernel Setup (Metabox Only)
 # Only works for uefi
