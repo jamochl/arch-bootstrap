@@ -10,6 +10,18 @@ mkdir ~/{Documents,Pictures,Videos,Downloads}
 PACKAGE_DIR="$HOME/.config/packagelists"
 
 # Initial System Setup
+## Setup APT
+cat <<EOF | sudo tee /etc/apt/apt.conf
+APT::Install-Recommends "False";
+APT::Cache::ShowRecommends "True";
+EOF
+
+sudo cp /etc/apt/sources.list{,~}
+sudo sed -i 's/us\.archive/au.archive/g' /etc/apt/sources.list
+
+sudo systemctl disable apt-daily-upgrade.timer apt-daily.timer
+sudo systemctl mask apt-daily-upgrade apt-daily
+
 sudo apt update && sudo apt upgrade -y
 
 # Setup GIT
@@ -25,21 +37,11 @@ git clone --bare https://github.com/jamochl/dotfiles ~/.dotfiles
 git --work-tree="$HOME" --git-dir="$HOME/.dotfiles" config status.showUntrackedFiles no
 git --work-tree="$HOME" --git-dir="$HOME/.dotfiles" checkout --force master
 
-# Setup APT
-cat <<EOF | sudo tee /etc/apt/apt.conf
-APT::Install-Recommends "False";
-APT::Cache::ShowRecommends "True";
-EOF
-
-sudo systemctl disable apt-daily-upgrade.timer apt-daily.timer
-sudo systemctl mask apt-daily-upgrade apt-daily
-
-
 # Install dependencies
 sudo apt install -y $(cat $PACKAGE_DIR/{common_desired,ubuntu_desired}.list | grep '^\w')
 
 ## Setup Flatpak
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install $(grep '^\w' $PACKAGE_DIR/flatpak_desired.list) --assumeyes --noninteractive
 
 ## Setup aws-cli
