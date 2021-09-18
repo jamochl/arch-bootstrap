@@ -38,8 +38,12 @@ sudo systemctl mask apt-daily-upgrade apt-daily
 # Install dependencies
 sudo apt install -y $(cat $PACKAGE_DIR/{common_desired,ubuntu_desired}.list | grep '^\w')
 
-## Setup Flatpak (TODO)
+## Setup Flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install $(grep '^\w' $PACKAGE_DIR/flatpak_desired.list) --assumeyes
+
 ## Setup aws-cli
+pip3 install --user awscli
 
 # Setup Firewalld
 sudo firewall-cmd --set-default-zone=home
@@ -47,7 +51,7 @@ sudo firewall-cmd --set-default-zone=home
 # Setup Virtualisation
 
 ## User setup
-usermod $USER -aG kvm,libvirt
+sudo usermod $USER -aG kvm,libvirt
 
 ## libvirt Firewalld
 sudo firewall-cmd --new-zone=libvirt --permanent
@@ -64,6 +68,7 @@ sudo systemctl restart libvirtd
 sudo systemctl disable NetworkManager-wait-online.service
 
 # Kernel Setup (Metabox Only)
+# Only works for uefi
 if [[ "$(lscpu -J | jq '.lscpu[] | select(.field == "Model name:") | .data')" == '"Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz"' ]]; then
     sudo kernelstub -a "intel_idle.max_cstate=4"
 fi
