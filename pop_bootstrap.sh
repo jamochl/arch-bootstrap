@@ -78,7 +78,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 VIMPLUGINSTALL="$(mktemp)"
-echo ":PlugInstall!" >> "$VIMPLUGINSTALL"
+echo ':PlugInstall!' >> "$VIMPLUGINSTALL"
 vim -s "$VIMPLUGINSTALL" "$VIMPLUGINSTALL"
 rm -f "$VIMPLUGINSTALL"
 
