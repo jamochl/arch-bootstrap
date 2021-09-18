@@ -79,7 +79,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 VIM_PLUG_INSTALL="$(mktemp)"
 cat <<EOF > "$VIM_PLUG_INSTALL"
-:PlugInstall! 
+:PlugInstall!
 :qa!
 EOF
 vim -s "$VIM_PLUG_INSTALL"
