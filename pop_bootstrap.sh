@@ -18,6 +18,7 @@ sudo apt install -y git
 git config --global user.name "jamochl"
 git config --global user.email "james.lim@jamochl.com"
 git config --global user.useConfigOnly "true"
+git config --global pull.rebase false # default strategy
 
 # Setup dotfiles
 git clone --bare https://github.com/jamochl/dotfiles ~/.dotfiles
