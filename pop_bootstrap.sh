@@ -25,7 +25,7 @@ fi
 sudo systemctl disable apt-daily-upgrade.timer apt-daily.timer
 sudo systemctl mask apt-daily-upgrade apt-daily
 
-sudo apt update && sudo apt upgrade -y
+sudo apt update && sudo apt upgrade -y --allow-downgrades
 
 # Setup GIT
 sudo apt install -y git
