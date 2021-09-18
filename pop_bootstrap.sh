@@ -40,7 +40,7 @@ sudo apt install -y $(cat $PACKAGE_DIR/{common_desired,ubuntu_desired}.list | gr
 
 ## Setup Flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install $(grep '^\w' $PACKAGE_DIR/flatpak_desired.list) --assumeyes
+flatpak install $(grep '^\w' $PACKAGE_DIR/flatpak_desired.list) --assumeyes --noninteractive
 
 ## Setup aws-cli
 pip3 install --user awscli
