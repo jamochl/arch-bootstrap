@@ -2,8 +2,12 @@
 
 # Bootstrap Pop!_OS Linux
 
+# File setup
+rmdir ~/*
+mkdir ~/{Documents,Pictures,Videos,Downloads}
+
 # Environment setup
-local PACKAGE_DIR="$HOME/.config/packagelists"
+PACKAGE_DIR="$HOME/.config/packagelists"
 
 # Initial System Setup
 sudo apt update && sudo apt upgrade -y
