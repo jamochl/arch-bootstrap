@@ -19,7 +19,7 @@ EOF
 sudo cp /etc/apt/sources.list{,~}
 sudo sed -i 's/us\.archive/au.archive/g' /etc/apt/sources.list
 if [[ -f '/etc/apt/sources.list.d/system.sources' ]]; then
-    sudo sed -i 's/us\.archive/au.archive/g' '/etc/apt/sources.list.d/system.sources'
+    sudo sed -i '/URIs:/s/us\.archive/au.archive/' /etc/apt/sources.list.d/system.sources
 fi
 
 sudo systemctl disable apt-daily-upgrade.timer apt-daily.timer
