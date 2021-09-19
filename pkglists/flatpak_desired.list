@@ -6,3 +6,6 @@ us.zoom.Zoom
 
 # VSCode
 com.visualstudio.code
+
+# Flatseal (Flatpak permission management)
+com.github.tchx84.Flatseal

@@ -9,8 +9,7 @@ fn_flatpak_setup_n_install() {
 }
 
 fn_pip_setup_n_install() {
-    # TODO move into pip list
-    pip3 install --user awscli
+    pip3 install --user $(grep '^\w' $PACKAGE_DIR/pip_desired.list)
 }
 
 fn_git_setup() {
