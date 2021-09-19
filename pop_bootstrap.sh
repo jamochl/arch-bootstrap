@@ -11,6 +11,7 @@ fn_home_setup
 fn_apt_setup
 fn_install_dependencies
 fn_git_setup
+fn_clone_dotfiles
 fn_flatpak_setup
 fn_pip_setup
 fn_firewalld_setup
