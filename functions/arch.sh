@@ -19,7 +19,7 @@ fn_service_setup() {
     sudo systemctl enable man-db.timer
     fn_network_setup
     fn_print_setup
-    fn_sound_setup
+    fn_sway_setup
     fn_firewall_setup
     fn_virtualisation_setup
 }
@@ -30,18 +30,14 @@ fn_network_setup() {
 }
 
 fn_print_setup() {
-    sudo systemctl enable cups.socket
     sudo systemctl enable avahi-daemon
     sudo systemctl disable systemd-resolved
     echo 'a4' | sudo tee /etc/papersize > /dev/null
     sudo sed -i 's/hosts: .*/hosts: files mymachines myhostname mdns4_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] dns' /etc/nsswitch.conf
     sudo systemctl enable cups-browsed.service
+    sudo systemctl enable cups.socket
 }
 
-fn_sound_setup() {
-    sudo tee -a /etc/environment <<EOF
-XDG_CURRENT_DESKTOP=sway
-XDG_SESSION_TYPE=wayland
-MOZ_ENABLE_WAYLAND=1
-EOF
+fn_sway_setup() {
+    sudo sed -i 's/Exec=.*/Exec=env XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland MOZ_ENABLE_WAYLAND=1 sway/' /usr/share/wayland-sessions/sway.desktop
 }
