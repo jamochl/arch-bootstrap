@@ -1,4 +1,4 @@
-fn_apt_setup() {
+fn_package_manager_setup() {
     cat <<EOF | sudo tee /etc/apt/apt.conf
 APT::Install-Recommends "False";
 APT::Cache::ShowRecommends "True";
@@ -14,14 +14,15 @@ EOF
     sudo systemctl mask apt-daily-upgrade apt-daily
 }
 
-fn_install_dependencies() {
+fn_install_pkglists() {
     sudo apt update && sudo apt upgrade -y --allow-downgrades
     sudo apt install -y $(cat $PACKAGE_DIR/{common_desired,ubuntu_desired}.list | grep '^\w')
+    fn_flatpak_setup_n_install
+    fn_pip_setup_n_install
 }
 
 fn_virtualisation_setup() {
     sudo usermod $USER -aG kvm,libvirt
-    sudo chsh james --shell="/bin/zsh"
 
     # libvirt Firewalld
     sudo firewall-cmd --new-zone=libvirt --permanent
@@ -35,3 +36,8 @@ fn_virtualisation_setup() {
     sudo systemctl restart libvirtd
 }
 
+fn_service_setup() {
+    fn_firewall_setup
+    fn_virtualisation_setup
+    sudo systemctl disable NetworkManager-wait-online.service
+}

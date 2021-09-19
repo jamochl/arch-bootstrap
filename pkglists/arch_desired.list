@@ -17,6 +17,8 @@ which
 
 # Sway Window Manager (Requires Setup)
 # https://wiki.archlinux.org/title/Sway
+xdg-desktop-portal
+xdg-desktop-portal-gtk
 mako
 
 # Window Managers
@@ -39,12 +41,13 @@ cups-filters
 ghostscript
 gsfonts
 avahi
+nss-mdns
 samba
 gutenprint
 foomatic-db-gutenprint-ppds
 system-config-printer
 
-# Security (Requires setup)
+# Security (Requires setup if not grub)
 # https://wiki.archlinux.org/title/Microcode
 # https://wiki.archlinux.org/title/Polkit#Authentication_agents
 intel-ucode
@@ -56,6 +59,7 @@ lxsession
 pipewire
 pipewire-pulse
 pipewire-alsa
+pipewire-media-session
 
 # Terminal Workflow
 gvim

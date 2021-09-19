@@ -3,6 +3,16 @@ fn_home_setup() {
     mkdir ~/{Documents,Pictures,Videos,Downloads}
 }
 
+fn_flatpak_setup_n_install() {
+    flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak install $(grep '^\w' $PACKAGE_DIR/flatpak_desired.list) --assumeyes --noninteractive
+}
+
+fn_pip_setup_n_install() {
+    # TODO move into pip list
+    pip3 install --user awscli
+}
+
 fn_git_setup() {
     git config --global user.name "jamochl"
     git config --global user.email "james.lim@jamochl.com"
@@ -16,21 +26,13 @@ fn_clone_dotfiles() {
     git --work-tree="$HOME" --git-dir="$HOME/.dotfiles" checkout --force master
 }
 
-fn_flatpak_setup() {
-    flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    flatpak install $(grep '^\w' $PACKAGE_DIR/flatpak_desired.list) --assumeyes --noninteractive
+fn_user_setup() {
+    sudo chsh james --shell="/bin/zsh"
 }
 
-fn_pip_setup() {
-    pip3 install --user awscli
-}
-
-fn_firewalld_setup() {
+fn_firewall_setup() {
+    sudo systemctl enable --now Firewalld
     sudo firewall-cmd --set-default-zone=home
-}
-
-fn_network_manager_setup() {
-    sudo systemctl disable NetworkManager-wait-online.service
 }
 
 fn_vim_setup() {
@@ -44,6 +46,10 @@ fn_vim_setup() {
 EOF
     vim -s "$VIM_PLUG_INSTALL"
     rm -f "$VIM_PLUG_INSTALL"
+}
+
+fn_utility_setup() {
+    fn_vim_setup
 }
 
 fn_kernel_setup() {

@@ -33,7 +33,6 @@ ovmf
 gir1.2-spiceclientgtk-3.0
 # vde2 ?
 # spice-client-gtk ?
-ebtables
 
 # Security
 network-manager-openvpn-gnome
