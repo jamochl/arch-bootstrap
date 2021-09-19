@@ -30,7 +30,7 @@ fn_user_setup() {
 }
 
 fn_firewall_setup() {
-    sudo systemctl enable --now Firewalld
+    sudo systemctl enable --now firewalld
     sudo firewall-cmd --set-default-zone=home
 }
 
