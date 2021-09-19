@@ -7,7 +7,7 @@ rmdir ~/*
 mkdir ~/{Documents,Pictures,Videos,Downloads}
 
 # Environment setup
-PACKAGE_DIR="$HOME/.config/packagelists"
+PACKAGE_DIR="$PWD/pkglists"
 
 # Initial System Setup
 ## Setup APT
@@ -27,7 +27,7 @@ sudo systemctl mask apt-daily-upgrade apt-daily
 
 sudo apt update && sudo apt upgrade -y --allow-downgrades
 
-# Setup GIT
+# Setup GIT (Git should already be installed)
 sudo apt install -y git
 
 git config --global user.name "jamochl"
