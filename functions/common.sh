@@ -1,5 +1,5 @@
 fn_home_setup() {
-    rmdir ~/*
+    rmdir ~/* &> /dev/null || true
     mkdir ~/{Documents,Pictures,Videos,Downloads}
 }
 
