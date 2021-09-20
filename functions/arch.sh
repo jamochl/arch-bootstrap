@@ -38,7 +38,7 @@ fn_print_setup() {
     sudo systemctl enable avahi-daemon
     sudo systemctl disable systemd-resolved
     echo 'a4' | sudo tee /etc/papersize > /dev/null
-    sudo sed -i 's/hosts: .*/hosts: files mymachines myhostname mdns4_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] dns' /etc/nsswitch.conf
+    sudo sed -i 's/hosts: .*/hosts: files mymachines myhostname mdns4_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] dns/' /etc/nsswitch.conf
     sudo systemctl enable cups-browsed.service
     sudo systemctl enable cups.socket
 }
