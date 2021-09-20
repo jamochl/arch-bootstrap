@@ -2,7 +2,7 @@ fn_package_manager_setup() {
     sudo sed -i 's/#Color/Color/;s/#VerbosePkgLists/VerbosePkgLists/' /etc/pacman.conf
 }
 
-fn_install_dependencies() {
+fn_install_pkglists() {
     sudo pacman -Syu
     sudo pacman -S $(cat $PACKAGE_DIR/{common_desired,arch_desired}.list | grep '^\w')
     fn_flatpak_setup_n_install
@@ -17,6 +17,7 @@ fn_virtualisation_setup() {
 fn_service_setup() {
     sudo systemctl enable gdm
     sudo systemctl enable man-db.timer
+    sudo systemctl start man-db
     fn_network_setup
     fn_print_setup
     fn_sway_setup
