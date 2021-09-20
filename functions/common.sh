@@ -5,6 +5,7 @@ fn_home_setup() {
 
 fn_flatpak_setup_n_install() {
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak remote-delete --system flathub 2> /dev/null || true
     flatpak install $(grep '^\w' $PACKAGE_DIR/flatpak_desired.list) --assumeyes --noninteractive
 }
 
