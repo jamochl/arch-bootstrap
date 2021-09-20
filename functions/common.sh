@@ -20,8 +20,12 @@ fn_git_setup() {
 }
 
 fn_clone_dotfiles() {
-    git clone --bare https://github.com/jamochl/dotfiles ~/.dotfiles
-    git --work-tree="$HOME" --git-dir="$HOME/.dotfiles" config status.showUntrackedFiles no
+    if git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" status; then
+        git --work-tree="$HOME" --git-dir="$HOME/.dotfiles" pull
+    else
+        git clone --bare https://github.com/jamochl/dotfiles ~/.dotfiles
+        git --work-tree="$HOME" --git-dir="$HOME/.dotfiles" config status.showUntrackedFiles no
+    fi
     git --work-tree="$HOME" --git-dir="$HOME/.dotfiles" checkout --force master
 }
 
