@@ -22,9 +22,7 @@ xdg-desktop-portal-gtk
 mako
 
 # Window Managers
-# enable gdm.service
 # https://wiki.archlinux.org/title/Wayland#Compositors
-gdm
 gtk3
 gtk4
 qt5-wayland

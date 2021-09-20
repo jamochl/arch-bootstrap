@@ -19,7 +19,6 @@ fn_virtualisation_setup() {
 }
 
 fn_service_setup() {
-    sudo systemctl enable gdm
     sudo systemctl enable man-db.timer
     sudo systemctl start man-db
     fn_network_setup
@@ -45,8 +44,21 @@ fn_print_setup() {
 
 fn_sway_setup() {
     if ! lscpu | grep 'Hypervisor vendor' > /dev/null; then
-        sudo sed -i 's/Exec=.*/Exec=env XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland MOZ_ENABLE_WAYLAND=1 sway/' /usr/share/wayland-sessions/sway.desktop
+        [[ -f /usr/share/wayland-sessions/sway.desktop ]] && sudo sed -i 's/Exec=.*/Exec=env XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland MOZ_ENABLE_WAYLAND=1 sway/' /usr/share/wayland-sessions/sway.desktop
+        cat <<EOF > ~/swaystrap.sh
+export XDG_CURRENT_DESKTOP=sway
+export XDG_SESSION_TYPE=wayland
+export MOZ_ENABLE_WAYLAND=1 
+exec sway
+EOF
     else
-        sudo sed -i 's/Exec=.*/Exec=env XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland MOZ_ENABLE_WAYLAND=1 WLR_RENDERER_ALLOW_SOFTWARE=1 sway/' /usr/share/wayland-sessions/sway.desktop
+        [[ -f /usr/share/wayland-sessions/sway.desktop ]] && sudo sed -i 's/Exec=.*/Exec=env XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland MOZ_ENABLE_WAYLAND=1 WLR_RENDERER_ALLOW_SOFTWARE=1 sway/' /usr/share/wayland-sessions/sway.desktop
+        cat <<EOF > ~/swaystrap.sh
+export XDG_CURRENT_DESKTOP=sway
+export XDG_SESSION_TYPE=wayland
+export MOZ_ENABLE_WAYLAND=1 
+export WLR_RENDERER_ALLOW_SOFTWARE=1 
+exec sway
+EOF
     fi
 }
