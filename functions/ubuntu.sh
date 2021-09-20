@@ -25,7 +25,7 @@ fn_virtualisation_setup() {
     sudo usermod $USER -aG kvm,libvirt
 
     # libvirt Firewalld
-    if ! firewall-cmd --info-zone=libvirt; then
+    if ! sudo firewall-cmd --info-zone=libvirt; then
         sudo firewall-cmd --new-zone=libvirt --permanent
     fi
     sudo firewall-cmd --zone=libvirt --add-service={ssh,dhcpv6,dhcp,http,https,dns,tftp} --permanent
