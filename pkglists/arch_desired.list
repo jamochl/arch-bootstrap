@@ -29,8 +29,8 @@ gtk3
 gtk4
 qt5-wayland
 qt6-wayland
-oft-fira-mono
-oft-font-awesome
+otf-fira-mono
+otf-font-awesome
 
 # Print Server (Requires Additional Setup)
 # https://wiki.archlinux.org/title/CUPS
