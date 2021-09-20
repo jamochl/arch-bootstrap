@@ -45,6 +45,7 @@ fn_vim_setup() {
     VIM_PLUG_INSTALL="$(mktemp)"
     cat <<EOF > "$VIM_PLUG_INSTALL"
 :PlugInstall!
+:sleep 35
 :qa!
 EOF
     vim -s "$VIM_PLUG_INSTALL"
