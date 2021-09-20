@@ -44,5 +44,9 @@ fn_print_setup() {
 }
 
 fn_sway_setup() {
-    sudo sed -i 's/Exec=.*/Exec=env XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland MOZ_ENABLE_WAYLAND=1 sway/' /usr/share/wayland-sessions/sway.desktop
+    if ! lscpu | grep 'Hypervisor vendor' > /dev/null; then
+        sudo sed -i 's/Exec=.*/Exec=env XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland MOZ_ENABLE_WAYLAND=1 sway/' /usr/share/wayland-sessions/sway.desktop
+    else
+        sudo sed -i 's/Exec=.*/Exec=env XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland MOZ_ENABLE_WAYLAND=1 WLR_RENDERER_ALLOW_SOFTWARE=1 sway/' /usr/share/wayland-sessions/sway.desktop
+    fi
 }
