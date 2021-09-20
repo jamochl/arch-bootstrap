@@ -4,7 +4,11 @@ fn_package_manager_setup() {
 
 fn_install_pkglists() {
     sudo pacman -Syu --noconfirm
-    yes y | sudo pacman  --noconfirm --needed -S $(cat $PACKAGE_DIR/{common_desired,arch_desired}.list | grep '^\w') $(pacman -Sgq $(grep '^\w' $PACKAGE_DIR/arch_group_desired.list))
+    if grep '^\w' "$PACKAGE_DIR/arch_group_desired.list"; then
+        yes y | sudo pacman  --noconfirm --needed -S $(cat $PACKAGE_DIR/{common_desired,arch_desired}.list | grep '^\w') $(pacman -Sgq $(grep '^\w' $PACKAGE_DIR/arch_group_desired.list))
+    else
+        yes y | sudo pacman  --noconfirm --needed -S $(cat $PACKAGE_DIR/{common_desired,arch_desired}.list | grep '^\w')
+    fi
     fn_flatpak_setup_n_install
     fn_pip_setup_n_install
 }
