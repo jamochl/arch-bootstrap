@@ -4,7 +4,7 @@ fn_package_manager_setup() {
 
 fn_install_pkglists() {
     sudo pacman -Syu --noconfirm
-    yes all | sudo pacman -S $(cat $PACKAGE_DIR/{common_desired,arch_desired}.list | grep '^\w') --noconfirm --needed
+    yes y | sudo pacman  --noconfirm --needed -S $(cat $PACKAGE_DIR/{common_desired,arch_desired}.list | grep '^\w') $(pacman -Sgq $(grep '^\w' $PACKAGE_DIR/arch_group_desired.list))
     fn_flatpak_setup_n_install
     fn_pip_setup_n_install
 }

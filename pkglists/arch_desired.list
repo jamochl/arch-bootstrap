@@ -25,7 +25,6 @@ mako
 # enable gdm.service
 # https://wiki.archlinux.org/title/Wayland#Compositors
 gdm
-gnome
 gtk3
 gtk4
 qt5-wayland
