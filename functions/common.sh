@@ -31,7 +31,6 @@ fn_clone_dotfiles() {
 }
 
 fn_user_setup() {
-    sudo chsh $USER --shell="/bin/zsh"
     if ! sudo grep --line-regexp "$USER\s*ALL=(ALL:ALL) NOPASSWD: ALL" /etc/sudoers
     then
         echo "$USER   ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
@@ -59,6 +58,8 @@ EOF
 
 fn_utility_setup() {
     fn_vim_setup
+    # zsh shell setup
+    sudo chsh $USER --shell="/bin/zsh"
 }
 
 fn_kernel_setup() {
