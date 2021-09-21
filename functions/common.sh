@@ -56,8 +56,15 @@ EOF
     rm -f "$VIM_PLUG_INSTALL"
 }
 
+fn_vscode_setup() {
+    for EXTENSION in $(grep '^\w' $PACKAGE_DIR/vscode_desired.list); do
+        flatpak run com.visualstudio.code --install-extension "$EXTENSION"
+    done
+}
+
 fn_utility_setup() {
     fn_vim_setup
+    fn_vscode_setup
     # zsh shell setup
     sudo chsh $USER --shell="/bin/zsh"
 }
