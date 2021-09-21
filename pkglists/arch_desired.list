@@ -20,6 +20,7 @@ which
 xdg-desktop-portal
 xdg-desktop-portal-gtk
 mako
+xorg-xwayland
 
 # Window Managers
 # https://wiki.archlinux.org/title/Wayland#Compositors
