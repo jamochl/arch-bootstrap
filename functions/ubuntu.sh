@@ -41,5 +41,11 @@ fn_virtualisation_setup() {
 fn_service_setup() {
     fn_firewall_setup
     fn_virtualisation_setup
+    fn_podman_setup
     sudo systemctl disable NetworkManager-wait-online.service
+}
+
+fn_podman_setup() {
+    echo 'L+ /run/docker.sock - - - - /run/podman/podman.sock' | sudo tee /etc/tmpfiles.d/podman-to-docker.conf
+    sudo systemd-tmpfiles --create
 }
