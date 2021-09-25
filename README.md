@@ -28,7 +28,7 @@ cd system-bootstrap
 
 ## Bash
 
-The common libary in the libraries folder holds the core ABI interface of
+The common.sh library in the libraries folder holds the core ABI interface of
 what I want to achieve with the bootstrap.
 
 ```bash
@@ -44,8 +44,9 @@ common::kernel_setup
 ```
 
 These are all functions which perform system agnostic setup. Each function
-has a post hook to a distro::{{ function\_name }} variant, which is
-implemented via a distribution specific bash library.
+has a post hook that allows for distribution specific setup in each stage.
+Functions are implemented via distro::{{ function\_name }} variant, in a
+bash library such as ubuntu.sh or arch.sh
 
 The bootstrap is kicked off by passing a distribution specific bash
 library, (eg. library/ubuntu.sh) to the common::run\_bootstrap function.
@@ -65,8 +66,9 @@ distro::kernel_setup
 ```
 
 This acts similar to OOP interface composition. If a new distro is created,
-such as fedora, I can make a fedora.sh library to implement these functions
-to perform the setup I need.
+such as fedora, I can make a fedora.sh library to implement distro specific
+functions to perform distro specific actions (eg. dnf update -y), while
+common logic is handled by common.sh library
 
 ## Packages
 
