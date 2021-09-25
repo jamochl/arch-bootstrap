@@ -1,7 +1,7 @@
 # Interface Hooks
 
-distro::home_setup() { }
-distro::user_setup() { }
+distro::home_setup() { : }
+distro::user_setup() { : }
 
 distro::package_manager_setup() {
     sudo sed -i 's/#Color/Color/;s/#VerbosePkgLists/VerbosePkgLists/' /etc/pacman.conf
@@ -16,8 +16,8 @@ distro::install_pkglists() {
     fi
 }
 
-distro::git_setup() { }
-distro::clone_dotfiles() { }
+distro::git_setup() { : }
+distro::clone_dotfiles() { : }
 
 distro::service_setup() {
     sudo systemctl enable man-db.timer
@@ -28,8 +28,8 @@ distro::service_setup() {
     distro::virtualisation_setup
 }
 
-distro::utility_setup() { }
-distro::kernel_setup() { }
+distro::utility_setup() { : }
+distro::kernel_setup() { : }
 
 # Implementation Functions
 
