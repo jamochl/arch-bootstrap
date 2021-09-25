@@ -21,7 +21,7 @@ cd system-bootstrap
 ```bash
 git clone https://github.com/jamochl/system-bootstrap
 cd system-bootstrap
-./pop_bootstrap.sh
+./arch_bootstrap.sh
 ```
 
 # How it works
