@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 # Bootstrap Pop!_OS Linux
 source libraries/common.sh
