@@ -1,38 +1,49 @@
 # Core ABI functions, sources distro specific interface as a hook for each
 
 common::home_setup() {
+    common::info "Starting common home_setup"
     rmdir ~/* &> /dev/null || true
     mkdir ~/{Documents,Pictures,Videos,Downloads}
     distro::home_setup
+    common::success "Finished common home_setup"
 }
 
 common::user_setup() {
+    common::info "Starting common user_setup"
     if ! sudo grep --line-regexp "$USER\s*ALL=(ALL:ALL) NOPASSWD: ALL" /etc/sudoers
     then
         echo "$USER   ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
     fi
     distro::user_setup
+    common::success "Finished common user_setup"
 }
 
 common::package_manager_setup() {
+    common::info "Starting common package_manager_setup"
     distro::package_manager_setup
+    common::success "Finished common package_manager_setup"
 }
 
 common::install_pkglists() {
+    common::info "Starting common install_pkglists"
     distro::install_pkglists
     common::flatpak_setup_n_install
     common::pip_setup_n_install
+    common::success "Finished common install_pkglists"
 }
 
 common::git_setup() {
+    common::info "Starting common git_setup"
     git config --global user.name "jamochl"
     git config --global user.email "james.lim@jamochl.com"
     git config --global user.useConfigOnly "true"
     git config --global pull.rebase false # default strategy
     distro::git_setup
+    common::success "Finished common git_setup"
 }
 
 common::clone_dotfiles() {
+    common::info "Starting common clone_dotfiles"
     if git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" status; then
         git --work-tree="$HOME" --git-dir="$HOME/.dotfiles" pull
     else
@@ -41,23 +52,30 @@ common::clone_dotfiles() {
     fi
     git --work-tree="$HOME" --git-dir="$HOME/.dotfiles" checkout --force master
     distro::clone_dotfiles
+    common::success "Finished common clone_dotfiles"
 }
 
 common::service_setup() {
+    common::info "Starting common service_setup"
     common::firewall_setup
     distro::service_setup
+    common::success "Finished common service_setup"
 }
 
 common::utility_setup() {
+    common::info "Starting common utility_setup"
     common::vim_setup
     common::vscode_setup
     # zsh shell setup
     sudo chsh $USER --shell="/bin/zsh"
     distro::utility_setup
+    common::success "Finished common utility_setup"
 }
 
 common::kernel_setup() {
+    common::info "Starting common kernel_setup"
     distro::kernel_setup
+    common::success "Finished common kernel_setup"
 }
 
 # Main function to initiate Bootstrap
@@ -81,21 +99,28 @@ common::run_bootstrap() {
 # Implementation Functions
 
 common::flatpak_setup_n_install() {
+    common::info "Starting common flatpak Setup"
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     sudo flatpak remote-delete --system flathub 2> /dev/null || true
     flatpak install $(grep '^\w' $PACKAGE_DIR/flatpak_desired.list) --assumeyes --noninteractive
+    common::success "Finished common flatpak Setup"
 }
 
 common::pip_setup_n_install() {
+    common::info "Starting common pip Setup"
     pip3 install --user $(grep '^\w' $PACKAGE_DIR/pip_desired.list)
+    common::success "Finished common pip Setup"
 }
 
 common::firewall_setup() {
+    common::info "Starting common firewall Setup"
     sudo systemctl enable --now firewalld
     sudo firewall-cmd --set-default-zone=home
+    common::success "Finished common firewall Setup"
 }
 
 common::vim_setup() {
+    common::info "Starting common VIM Setup"
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
@@ -107,10 +132,29 @@ common::vim_setup() {
 EOF
     vim -s "$VIM_PLUG_INSTALL"
     rm -f "$VIM_PLUG_INSTALL"
+    common::success "Finished common VIM Setup"
 }
 
 common::vscode_setup() {
+    common::info "Starting common VSCode Setup"
     for EXTENSION in $(grep '^\w' $PACKAGE_DIR/vscode_desired.list); do
         flatpak run com.visualstudio.code --install-extension "$EXTENSION"
     done
+    common::success "Finished common VSCode Setup"
+}
+
+common::info() {
+    setterm --foreground yellow
+    echo "INFO: $@"
+    setterm --foreground default
+}
+common::error() {
+    setterm --foreground red
+    echo "ERROR: $@"
+    setterm --foreground default
+}
+common::success() {
+    setterm --foreground green
+    echo "SUCCESS: $@"
+    setterm --foreground default
 }
