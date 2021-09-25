@@ -1,7 +1,7 @@
 # Interface Hooks
 
-distro::home_setup() { : }
-distro::user_setup() { : }
+distro::home_setup() { :; }
+distro::user_setup() { :; }
 
 distro::package_manager_setup() {
     cat <<EOF | sudo tee /etc/apt/apt.conf
@@ -24,8 +24,8 @@ distro::install_pkglists() {
     sudo apt install -y $(cat $PACKAGE_DIR/{common_desired,ubuntu_desired}.list | grep '^\w')
 }
 
-distro::git_setup() { : }
-distro::clone_dotfiles() { : }
+distro::git_setup() { :; }
+distro::clone_dotfiles() { :; }
 
 distro::service_setup() {
     ubuntu::firewall_setup
@@ -34,7 +34,7 @@ distro::service_setup() {
     sudo systemctl disable NetworkManager-wait-online.service
 }
 
-distro::utility_setup() { : }
+distro::utility_setup() { :; }
 
 distro::kernel_setup() {
     # Kernel Setup (Metabox Only)
