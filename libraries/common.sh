@@ -75,7 +75,6 @@ common::run_bootstrap() {
     common::service_setup
     common::utility_setup
     common::kernel_setup
-    distro::run_bootstrap
 }
 
 # Implementation Functions
