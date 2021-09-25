@@ -28,7 +28,6 @@ distro::git_setup() { :; }
 distro::clone_dotfiles() { :; }
 
 distro::service_setup() {
-    ubuntu::firewall_setup
     ubuntu::virtualisation_setup
     ubuntu::podman_setup
     sudo systemctl disable NetworkManager-wait-online.service
