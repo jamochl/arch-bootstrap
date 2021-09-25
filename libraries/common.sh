@@ -3,7 +3,7 @@
 common::home_setup() {
     rmdir ~/* &> /dev/null || true
     mkdir ~/{Documents,Pictures,Videos,Downloads}
-    distro::home_setup()
+    distro::home_setup
 }
 
 common::user_setup() {
