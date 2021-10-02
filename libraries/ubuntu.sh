@@ -38,7 +38,7 @@ distro::utility_setup() { :; }
 distro::kernel_setup() {
     # Kernel Setup (Metabox Only)
     # Only works for uefi
-    if [[ "$(lscpu -J | jq '.lscpu[] | select(.field == "Model name:") | .data')" == '"Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz"' ]]; then
+    if lscpu | grep 'Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz' > /dev/null; then
         sudo kernelstub -a "intel_idle.max_cstate=4"
     fi
 }
