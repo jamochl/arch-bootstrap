@@ -9,3 +9,15 @@ com.visualstudio.code
 
 # Flatseal (Flatpak permission management)
 com.github.tchx84.Flatseal
+
+# Joplin
+net.cozic.joplin_desktop
+
+# Bitwarden
+com.bitwarden.desktop
+
+# Minecraft Launcher
+io.gdevs.GDLauncher
+
+# Gimp
+org.gimp.GIMP
