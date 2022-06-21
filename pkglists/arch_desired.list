@@ -70,6 +70,7 @@ dnsmasq
 openbsd-netcat
 virt-manager
 edk2-ovmf
+docker
 
 # Network (Requires setup)
 # https://wiki.archlinux.org/title/NetworkManager

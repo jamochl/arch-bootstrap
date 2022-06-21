@@ -54,8 +54,7 @@ restic
 rclone
 tldr
 enscript
-podman
-docker-compose
+# podman
 make
 
 # Security

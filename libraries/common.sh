@@ -110,6 +110,7 @@ EOF
 
 common::vscode_setup() {
     for EXTENSION in $(grep '^\w' $PACKAGE_DIR/vscode_desired.list); do
-        flatpak run com.visualstudio.code --install-extension "$EXTENSION"
+        # flatpak run com.visualstudio.code --install-extension "$EXTENSION"
+        code --install-extension "$EXTENSION"
     done
 }
