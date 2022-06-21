@@ -35,6 +35,7 @@ nautilus
 tmux
 tree
 qrencode
+virt-viewer
 
 # Theming
 lxappearance
@@ -74,3 +75,6 @@ wget
 curl
 jq
 less
+sxiv
+rclone
+restic
