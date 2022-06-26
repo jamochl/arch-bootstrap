@@ -5,6 +5,7 @@ setup (Applications, Configuration, firewall, etc).
 
 * POP Bootstrap (Working)
 * Arch Bootstrap (Working)
+* MacOS Bootstrap (Untested)
 
 # Instructions
 
@@ -24,6 +25,14 @@ cd system-bootstrap
 ./arch_bootstrap.sh
 ```
 
+## MacOS Bootstrap
+
+```bash
+git clone https://github.com/jamochl/system-bootstrap
+cd system-bootstrap
+./macos_bootstrap.sh
+```
+
 # How it works
 
 ## Bash
@@ -39,6 +48,7 @@ common::install_pkglists
 common::git_setup
 common::clone_dotfiles
 common::service_setup
+common::firewall_setup
 common::utility_setup
 common::kernel_setup
 ```
@@ -61,6 +71,7 @@ distro::install_pkglists
 distro::git_setup
 distro::clone_dotfiles
 distro::service_setup
+distro::firewall_setup
 distro::utility_setup
 distro::kernel_setup
 ```
@@ -76,3 +87,23 @@ As well, packages are defined in the pkglists/ folder in a shell format
 (empty lines and comments will be ignored). This is to get declarative
 behaviour, and there is a list for package managers, vscode extensions,
 pip, and flatpak applications.
+
+## Testing
+
+Testing of a module can be done through the run_common.sh
+
+```
+./run_common.sh common::pip_setup_n_install
+```
+
+# Using dotfiles
+
+```
+if git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" status; then
+    git --work-tree="$HOME" --git-dir="$HOME/.dotfiles" pull
+else
+    git clone --bare https://github.com/jamochl/dotfiles ~/.dotfiles
+    git --work-tree="$HOME" --git-dir="$HOME/.dotfiles" config status.showUntrackedFiles no
+fi
+git --work-tree="$HOME" --git-dir="$HOME/.dotfiles" checkout --force master
+```

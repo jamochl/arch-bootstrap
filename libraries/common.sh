@@ -1,3 +1,7 @@
+# Default Vars
+
+: ${PACKAGE_DIR:=pkglists}
+
 # Core ABI functions, sources distro specific interface as a hook for each
 
 common::home_setup() {
@@ -75,6 +79,7 @@ common::run_bootstrap() {
 # Implementation Functions
 
 common::pip_setup_n_install() {
+    python3 -m pip install --upgrade pip
     pip3 install --user $(grep '^\w' $PACKAGE_DIR/pip_desired.list)
 }
 
