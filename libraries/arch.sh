@@ -1,7 +1,11 @@
 # Interface Hooks
 
 distro::home_setup() { :; }
-distro::user_setup() { :; }
+distro::user_setup() {
+    if ! sudo grep --line-regexp "$USER\s*ALL=(ALL:ALL) NOPASSWD: ALL" /etc/sudoers; then
+        echo "$USER   ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
+    fi
+}
 
 distro::package_manager_setup() {
     sudo sed -i 's/#Color/Color/;s/#VerbosePkgLists/VerbosePkgLists/' /etc/pacman.conf
@@ -14,6 +18,7 @@ distro::install_pkglists() {
     else
         sudo pacman  --needed -S $(cat $PACKAGE_DIR/{common_desired,arch_desired}.list | grep '^\w')
     fi
+    linux::flatpak_setup_n_install
 }
 
 distro::git_setup() { :; }
@@ -28,7 +33,10 @@ distro::service_setup() {
     distro::virtualisation_setup
 }
 
-distro::utility_setup() { :; }
+distro::utility_setup() {
+    linux::utility_setup
+}
+
 distro::kernel_setup() { :; }
 
 # Implementation Functions
