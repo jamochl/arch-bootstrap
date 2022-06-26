@@ -26,7 +26,15 @@ distro::git_setup() {
 
 distro::clone_dotfiles() { :; }
 distro::service_setup() { :; }
-distro::utility_setup() { :; }
+distro::utility_setup() {
+    distro::vscode_setup
+}
 distro::kernel_setup() { :; }
 
 # Implementation Functions
+
+distro::vscode_setup() {
+    for EXTENSION in $(grep '^\w' $PACKAGE_DIR/vscode_desired.list); do
+        code --install-extension "$EXTENSION"
+    done
+}

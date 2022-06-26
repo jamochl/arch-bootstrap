@@ -50,7 +50,6 @@ common::firewall_setup() {
 
 common::utility_setup() {
     common::vim_setup
-    common::vscode_setup
     distro::utility_setup
 }
 
@@ -95,10 +94,4 @@ common::vim_setup() {
 EOF
     vim -s "$VIM_PLUG_INSTALL"
     rm -f "$VIM_PLUG_INSTALL"
-}
-
-common::vscode_setup() {
-    for EXTENSION in $(grep '^\w' $PACKAGE_DIR/vscode_desired.list); do
-        code --install-extension "$EXTENSION"
-    done
 }
