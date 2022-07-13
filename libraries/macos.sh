@@ -16,9 +16,12 @@ distro::git_setup() {
     {
         mkdir -p ~/Projects/Github
         cd ~/Projects/Github
+        echo "Cloning git repos..."
         for REPO in $(gh repo list -L 100 --json name --jq .[].name); do
             if [[ ! -d $REPO ]]; then
                 gh repo clone $REPO
+            else
+                echo "Git repo: $REPO already exists"
             fi
         done
     }
