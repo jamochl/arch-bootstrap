@@ -37,6 +37,10 @@ distro::utility_setup() {
     linux::utility_setup
 }
 
+distro::firewall_setup() {
+    linux::firewall_setup
+}
+
 distro::kernel_setup() { :; }
 
 # Implementation Functions

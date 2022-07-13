@@ -26,6 +26,7 @@ distro::git_setup() {
 
 distro::clone_dotfiles() { :; }
 distro::service_setup() { :; }
+distro::firewall_setup() { :; }
 distro::utility_setup() {
     distro::vscode_setup
 }
